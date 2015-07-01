@@ -15,46 +15,15 @@ var zData=[[]];  //note nested arrays not 2d declaration
 
 function start(ser) {
 
-  
-
 io = require('socket.io').listen(ser);
-
-
 
 
  sp.on("open", function () {
     console.log('open');
     sp.on('data',processData);
  })
-//app.listen(8808);
-
-// socket.io options go here
-
-//io.set('log level', 3);   // reduce logging - set 1 for warn, 2 for info, 3 for debug
-
-//io.set('browser client minification', true);  // send minified client
-
-//io.set('browser client etag', true);  // apply etag caching logic based on version number
-
-
-//console.log('Server running on: http://' + getIPAddress() + ':8808');
-}
-
-function processData(data) {
-    console.log('data received: ' + data.toString());
-    var dataSplit = data.split(',');
-    console.log(dataSplit);
-    if (dataSplit[1] == 'ZQRY')
-      zData[dataSplit[2]] = dataSplit.slice(3);
-   
-    if (dataSplit[2] == 'TUNE') {
-      if (dataSplit[1] == 'R1')
-        tuners[0] = dataSplit[3];
-      else if(dataSplit[1] == 'R2')
-        tuners[1] = dataSplit[3];
-    }
-   
-   io.sockets.on('connection', function (socket) {
+ 
+ io.sockets.on('connection', function (socket) {
 
   // listen to sockets
   // Get current vol levels
@@ -68,10 +37,10 @@ function processData(data) {
   setTimeout(function() {
       
       console.log('tuners are :' + tuners);
-      console.log('zone data :' +zData);
+      //console.log('zone data :' +zData);
       //console.log('zData 1,1 :  '+zData[1][1]);
       socket.emit('update', tuners, zData);
-    }, 500 );
+    }, 1000 );
     
   socket.on('zvol', function (zone, data) {
 
@@ -121,7 +90,25 @@ function processData(data) {
   });
 
 });//end io.socket.on
+} //end start
+
+function processData(data) {
+    console.log('data received: ' + data.toString());
+    var dataSplit = data.split(',');
+    //console.log(dataSplit);
+    if (dataSplit[1] == 'ZQRY')
+      zData[dataSplit[2]] = dataSplit.slice(3);
+   
+    if (dataSplit[2] == 'TUNE') {
+      if (dataSplit[1] == 'R1')
+        tuners[0] = dataSplit[3];
+      else if(dataSplit[1] == 'R2')
+        tuners[1] = dataSplit[3];
+    }
 }
+   
+   
+
 
 /*function handler (req, res) {
 

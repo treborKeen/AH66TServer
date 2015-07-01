@@ -6,7 +6,6 @@ function start(route, handle) {
   function onRequest(request, response) {
       var postData = "";
       var pathname = url.parse(request.url).pathname;
-      console.log("raw request" + request.headers);
       console.log("Extension" + path.extname(pathname));
       console.log("Request for " + pathname + " received.");
       
@@ -24,7 +23,7 @@ function start(route, handle) {
     
   }
 
-  var server = http.createServer(onRequest).listen(8808);
+  var server = http.createServer(onRequest).listen(8888);
   console.log("Server has started.");
   return server;
 }

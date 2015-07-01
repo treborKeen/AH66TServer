@@ -21,13 +21,6 @@
             }
 
 
-
-            function zonePow(zone, value) {
-
-                socket.emit('zonePow', zone, value);
-
-            }
-
             function zoneSelect(zone, value) {
 
                 socket.emit('zoneSelect', zone, value);

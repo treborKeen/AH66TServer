@@ -71,19 +71,21 @@ function control(response, postData){
     });
 } 
 
-function sk(response, postData){
-    console.log("Request handler 'socket' was called.");
-    fs.readFile(__dirname + '/socket.io/socket.io.js',function(err,data){
+function favicon(response, postData){
+    console.log("Request handler 'favicon' was called.");
+    fs.readFile(__dirname + '/public/images/favicon.ico',function(err,data){
         if(err) console.log(err);
-        response.writeHead(200,{"Content-Type":"text/javascript"});
+        response.writeHead(200,{"Content-Type":"image/ico"});
         response.write(data);
         response.end();
     });
 } 
+
+
 
 exports.start=start;
 exports.upload=upload;
 exports.main=main;
 exports.styles=styles;
 exports.control=control;
-exports.sk=sk;
+exports.favicon=favicon;
