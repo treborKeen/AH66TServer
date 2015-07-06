@@ -32,7 +32,28 @@ function upload(response, postData){
 
 function main(response, postData){
     console.log("Request handler 'main' was called.");
-    fs.readFile('Html1.html',    // load html file
+    fs.readFile('main.html',    // load html file
+
+  function (err, data) {
+
+    if (err) {
+
+      response.writeHead(500);
+
+      return response.end('Error loading index.html');
+
+    }
+
+    response.writeHead(200);
+
+    response.end(data);
+
+  });
+}
+
+function zone(response, postData){
+    console.log("Request handler 'zone' was called.");
+    fs.readFile('zone.html',    // load html file
 
   function (err, data) {
 
@@ -86,6 +107,7 @@ function favicon(response, postData){
 exports.start=start;
 exports.upload=upload;
 exports.main=main;
+exports.zone=zone;
 exports.styles=styles;
 exports.control=control;
 exports.favicon=favicon;

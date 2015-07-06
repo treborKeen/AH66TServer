@@ -1,18 +1,29 @@
             var socket = io();
-
-            socket.on('update', function(tuners, zData) {
+            
+            function updateElements(tuners, zData) {
 
                 for (i = 1; i < 8; i++) {
 
-                    (document.getElementById('slider' + i)).value = zData[i][1];
-
+                    //(document.getElementById('slider' + i)).disabled=false;
                     (document.getElementById('selectAudio' + i)).value = zData[i][0];
+                    
+                    (document.getElementById('slider' + i)).value = zData[i][1];
+                    
+                   // if(zData[i][0]==="A0")
+                    //    (document.getElementById('slider' + i)).disabled=true;
+                        
+                if(zData[i][0]==="A0")
+                        (document.getElementById('slider' + i)).style.display="none";
+                    
 
                 }
 
                 tuner1.value = tuners[0].trim() + '0';
                 tuner2.value = tuners[1].trim() + '0';
-            });
+            }
+
+            socket.on('update', updateElements );
+            
             // Send data through socket
             function zvol(zone, value) {
 
