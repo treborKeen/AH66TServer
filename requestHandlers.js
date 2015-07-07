@@ -58,15 +58,11 @@ function zone(response, postData){
   function (err, data) {
 
     if (err) {
-
       response.writeHead(500);
-
       return response.end('Error loading index.html');
-
     }
-
     response.writeHead(200);
-
+    //response.write(data);
     response.end(data);
 
   });
@@ -85,6 +81,15 @@ function styles(response, postData){
 function control(response, postData){
     console.log("Request handler 'control' was called.");
     fs.readFile(__dirname + '/public/js/control.js',function(err,data){
+        if(err) console.log(err);
+        response.writeHead(200,{"Content-Type":"text/javascript"});
+        response.write(data);
+        response.end();
+    });
+} 
+function zoneControl(response, postData){
+    console.log("Request handler 'zone control' was called.");
+    fs.readFile(__dirname + '/public/js/zoneControl.js',function(err,data){
         if(err) console.log(err);
         response.writeHead(200,{"Content-Type":"text/javascript"});
         response.write(data);
@@ -110,4 +115,5 @@ exports.main=main;
 exports.zone=zone;
 exports.styles=styles;
 exports.control=control;
+exports.zoneControl=zoneControl;
 exports.favicon=favicon;

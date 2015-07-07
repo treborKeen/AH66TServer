@@ -1,32 +1,31 @@
             var socket = io();
+            var currentZone;
             var zData;
             var tuners;
             
             function updateElements() {
-
-                for (i = 1; i < 8; i++) {
-
-                    //(document.getElementById('slider' + i)).disabled=false;
-                    (document.getElementById('selectAudio' + i)).value = zData[i][0];
+                console.log("calling update with zone"+currentZone);
+                    (document.getElementById('slider')).disabled=false;
+                    (document.getElementById('zone')).value = currentZone;
+                    (document.getElementById('selectAudio')).value = zData[currentZone][0];
+                    (document.getElementById('slider')).value = zData[currentZone][1];
                     
-                    (document.getElementById('slider' + i)).value = zData[i][1];
-                    
-                    if(zData[i][0]==="A0")
-                        (document.getElementById('slider' + i)).disabled=true;
+                    if(zData[currentZone][0]==="A0")
+                        (document.getElementById('slider')).disabled=true;
                         
                 //if(zData[i][0]==="A0")
                 //        (document.getElementById('slider' + i)).style.display="none";
                     
 
-                }
+                
 
                 tuner1.value = tuners[0].trim() + '0';
                 tuner2.value = tuners[1].trim() + '0';
             }
 
             socket.on('update', function(tunerData, zoneData, curZone) {
-                  console.log('update  called');
-                  
+                console.log('update  called');
+                currentZone = curZone;  
                 zData=zoneData;
                 tuners=tunerData;
                 console.log('tuners are' + tuners);
@@ -44,10 +43,10 @@
             function zoneSelect(zone, value) {
 
                 socket.emit('zoneSelect', zone, value);
+                //updateElements();
                 document.location.reload(true);
 
             }
-            
             
 
             function tune(tuner, value) {
@@ -68,3 +67,10 @@
                 socket.emit('sysOff');
 
             }
+            
+            function updateZone(value) {
+
+               socket.emit('updateZone',value);
+document.location.reload(true);
+            }
+            

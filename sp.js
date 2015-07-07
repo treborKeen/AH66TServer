@@ -12,6 +12,7 @@ var sp = new SerialPort("/dev/ttyO4", {
 var io;
 var tuners=[];
 var zData=[[]];  //note nested arrays not 2d declaration
+var curZone=1;
 
 function start(ser) {
 
@@ -39,8 +40,8 @@ io = require('socket.io').listen(ser);
       console.log('tuners are :' + tuners);
       //console.log('zone data :' +zData);
       //console.log('zData 1,1 :  '+zData[1][1]);
-      socket.emit('update', tuners, zData);
-    }, 1000 );
+      socket.emit('update', tuners, zData,curZone);
+    }, 500 );
     
   socket.on('zvol', function (zone, data) {
 
@@ -48,15 +49,6 @@ io = require('socket.io').listen(ser);
     sp.write("&AH66,VOL,"+zone+','+data+"\r");
   });
   
-  
-  
-
-
-  socket.on('zonePow', function(zone, data) {
-
-    console.log("Power for: " + zone + ' with value ' + data);
-    sp.write("&AH66,PWR," + zone + ',' + data + "\r");
-  });
   
   socket.on('zoneSelect', function(zone, data) {
   
@@ -70,7 +62,13 @@ io = require('socket.io').listen(ser);
   
   });
   
-  
+  socket.on('updateZone', function (data) {
+  curZone=data;
+    console.log('zone selected: '+data);
+    sp.write('&AH66,ZQRY,'+data+',?\r');
+    
+ });
+ 
   socket.on('page', function (data) {
 
     console.log("Page: "+' with value '+ data);

@@ -18,6 +18,7 @@
         <!-- Home -->
             </div>
                 <div>
+                    Master Bed
                     <select id="selectAudio1" name="selectAudio1" 
                     onChange="zoneSelect(1,value);">
                         <option value="A0">Off</option>
@@ -28,9 +29,10 @@
                         <option value="R2">Radio2</option>
                     </select>         	
                     <input id="slider1"  type="range" value=0 min="0" max="100"   onInput="zvol(1,value);" />
-                    <label for="slider1">Master Bed</label>
+                 
                 </div>
                 <div >
+                    Front Porch
                 		<select id="selectAudio2" name="selectAudio2"  onChange="zoneSelect(2,value);">
                         <option value="A0">Off</option>
                         <option value="R1">Radio</option>
@@ -42,7 +44,7 @@
                     
                     <input id="slider2" type="range" name="slider" value="0"
                     min="0" max="100" data-highlight="false"  onInput="zvol(2,value);">
-                    <label for="slider2">Front Porch</label>
+                
                 </div>
                 <div >
                     <select id="selectAudio3" name="selectAudio3"  onChange="zoneSelect(3,value);">
@@ -145,7 +147,7 @@
                     
                    
                     <button id="sysOff" name="sysOff"  onclick="sysOff()">ALL OFF</button>
-               
+                   <button onclick="window.location.href='/zone'">Zone Detail</button>
                 </div>
     </body>
 

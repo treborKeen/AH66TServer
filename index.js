@@ -12,6 +12,7 @@ handle["/main"] = requestHandlers.main;
 handle["/zone"] = requestHandlers.zone;
 handle["/public/css/styles.css"]=requestHandlers.styles;
 handle["/public/js/control.js"]=requestHandlers.control;
+handle["/public/js/zoneControl.js"]=requestHandlers.zoneControl;
 handle["/public/images/favicon.ico"]=requestHandlers.favicon;
 handle["/favicon.ico"]=requestHandlers.favicon;
 
