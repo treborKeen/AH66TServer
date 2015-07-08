@@ -16,6 +16,7 @@
     
     <body>
         <!-- Home -->
+        ----Zone Detail----
             </div>
                 <div>
                     <select id="zone" name="zone" value = currentZone  onChange="updateZone(value);">
@@ -27,14 +28,14 @@
                         <option value="6">Master Bath</option>
                         <option value="7">Basement</option>
                     </select>         	
-                    <input id="slider"  type="range" value=0 min="0" max="100"   onInput="zvol(currentZone,value);" />
+                    <input id="slider"  type="range" value=0 min="0" max="100"   onInput="zvol(value);" />
                     
                     
                 </div>
                 
                 
                 <div>	
-                    <select id="selectAudio" name="selectAudio"  onChange="zoneSelect(currentZone,value);">
+                    <select id="selectAudio" name="selectAudio"  onChange="zoneSelect(value);">
                         <option value="A0">Off</option>
                         <option value="R1">Radio</option>
                         <option value="A1">Airplay</option>
@@ -68,6 +69,15 @@
                     <label for="tuner2">Tuner2</label>
                 </div>
                 
+                <div>	
+                    <input id="trebelSlider"  type="range" value=0 min="-12" max="12"   onInput="trebelSelect(value);" />
+                    <label for="trebelSlider">Trebel</label>
+                    </div>
+                <div>
+                     <input id="bassSlider"  type="range" value=0 min="-12" max="12"   onInput="bassSelect(value);" />
+                     <label for="bassSlider">Bass</label>
+                    
+                </div>
                 <div >
                     <select id="page" name="page"  onChange="page(value);">
                         <option value="0">Off</option>

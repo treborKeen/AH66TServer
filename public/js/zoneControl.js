@@ -9,6 +9,8 @@
                     (document.getElementById('zone')).value = currentZone;
                     (document.getElementById('selectAudio')).value = zData[currentZone][0];
                     (document.getElementById('slider')).value = zData[currentZone][1];
+                    (document.getElementById('bassSlider')).value = parseInt(zData[currentZone][2]);
+                    (document.getElementById('trebelSlider')).value = parseInt(zData[currentZone][3]);
                     
                     if(zData[currentZone][0]==="A0")
                         (document.getElementById('slider')).disabled=true;
@@ -33,18 +35,32 @@
             });
             
             // Send data through socket
-            function zvol(zone, value) {
+            function zvol(value) {
 
-                socket.emit('zvol', zone, value);
+                socket.emit('zvol', currentZone, value);
 
             }
 
 
-            function zoneSelect(zone, value) {
+            function zoneSelect(value) {
 
-                socket.emit('zoneSelect', zone, value);
+                socket.emit('zoneSelect', currentZone, value);
                 //updateElements();
                 document.location.reload(true);
+
+            }
+            
+            function trebelSelect(value) {
+
+                socket.emit('trebelSelect', currentZone, value);
+                //document.location.reload(true);
+
+            }
+            
+            function bassSelect(value) {
+
+                socket.emit('bassSelect', currentZone, value);
+                //document.location.reload(true);
 
             }
             
