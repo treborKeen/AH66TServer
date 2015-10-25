@@ -13,6 +13,7 @@ var io;
 var tuners=[];
 var zData=[[]];  //note nested arrays not 2d declaration
 var curZone=1;
+var doorbell=0;
 
 function start(ser) {
 
@@ -22,6 +23,9 @@ io = require('socket.io').listen(ser);
  sp.on("open", function () {
     console.log('open');
     sp.on('data',processData);
+    setInterval(function(){
+      sp.write("&AH66,STI,1,?\r");
+    },1000)
  })
  
  io.sockets.on('connection', function (socket) {
@@ -37,8 +41,8 @@ io = require('socket.io').listen(ser);
   
   setTimeout(function() {
       
-      console.log('tuners are :' + tuners);
-      console.log('zone data :' +zData);
+      //console.log('tuners are :' + tuners);
+      //console.log('zone data :' +zData);
       //console.log('zData 1,1 :  '+zData[1][1]);
       socket.emit('update', tuners, zData,curZone);
     }, 500 );
@@ -125,73 +129,23 @@ function processData(data) {
       else if(dataSplit[1] == 'R2')
         tuners[1] = dataSplit[3];
     }
+   if (dataSplit[1] == 'STI') {
+     //console.log('found sti');
+      if (!doorbell&& dataSplit[3] == '100000')
+      {
+        doorbell=1;
+        playDoorbell();
+      }
+    }
+}   
+   
+function playDoorbell() {
+ 
+        sp.write("&AH66,DB,1\r")
+        setTimeout(function(){
+          sp.write("&AH66,DB,0\r");
+          doorbell=0;
+        },10000)
 }
-   
-   
-
-
-/*function handler (req, res) {
-
-  if (req.url == "/favicon.ico"){   // handle requests for favico.ico
-
-  res.writeHead(200, {'Content-Type': 'image/x-icon'} );
-
-  res.end();
-
-  console.log('favicon requested');
-
-  return;
-
-  } 
-
-  fs.readFile('Html1.html',    // load html file
-
-  function (err, data) {
-
-    if (err) {
-
-      res.writeHead(500);
-
-      return res.end('Error loading index.html');
-
-    }
-
-    res.writeHead(200);
-
-    res.end(data);
-
-  });
-
-} 
-*/
-
-
-
-
-/*
-// Get server IP address on LAN
-
-function getIPAddress() {
-
-  var interfaces = require('os').networkInterfaces();
-
-  for (var devName in interfaces) {
-
-    var iface = interfaces[devName];
-
-    for (var i = 0; i < iface.length; i++) {
-
-      var alias = iface[i];
-
-      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
-
-        return alias.address;
-
-    }
-
-  }
-
-  return '0.0.0.0';
-} */
 
 exports.start = start;
