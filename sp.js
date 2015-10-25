@@ -38,7 +38,7 @@ io = require('socket.io').listen(ser);
   setTimeout(function() {
       
       console.log('tuners are :' + tuners);
-      //console.log('zone data :' +zData);
+      console.log('zone data :' +zData);
       //console.log('zData 1,1 :  '+zData[1][1]);
       socket.emit('update', tuners, zData,curZone);
     }, 500 );
