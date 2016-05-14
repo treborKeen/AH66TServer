@@ -4,7 +4,7 @@
             
             function updateElements() {
 
-                for (i = 1; i < 8; i++) {
+                for (i = 1; i < 13; i++) {
 
                     //(document.getElementById('slider' + i)).disabled=false;
                     (document.getElementById('selectAudio' + i)).value = zData[i][0];

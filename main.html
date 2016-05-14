@@ -29,9 +29,8 @@
                         <option value="R2">Radio2</option>
                     </select>         	
                     <input id="slider1"  type="range" value=0 min="0" max="100"   onInput="zvol(1,value);" />
-                 
+                    <label for="slide2">Master Bed</label>
                 </div>
-                Master Bedroom
                 <div >
                 		<select id="selectAudio2" name="selectAudio2"  onChange="zoneSelect(2,value);">
                         <option value="A0">Off</option>
@@ -45,9 +44,8 @@
                     
                     <input id="slider2" type="range" name="slider" value="0"
                     min="0" max="100" data-highlight="false"  onInput="zvol(2,value);">
-                
+                    <label for="slide2">Front Porch</label>
                 </div>
-                                    Front Porch
                 <div >
                     <select id="selectAudio3" name="selectAudio3"  onChange="zoneSelect(3,value);">
                          <option value="A0">Off</option>
@@ -118,7 +116,20 @@
                     min="0" max="100" data-highlight="false"  onInput="zvol(7,value);">
                     <label for="slider7">Basement</label>
                 </div>
-                
+                <div >
+                    <select id="selectAudio8" name="selectAudio8"  onChange="zoneSelect(8,value);">
+                         <option value="A0">Off</option>
+                        <option value="R1">Radio</option>
+                        <option value="A1">Airplay</option>
+                         <option value="A2">iPort</option>
+                        <option value="A3">Marantz</option>
+                        <option value="A4">Sirius</option>
+                        <option value="R2">Radio2</option>
+                    </select>
+                    <input id="slider8" type="range" name="slider" value="0"
+                    min="0" max="100" data-highlight="false"  onInput="zvol(8,value);">
+                    <label for="slider8">Workshop</label>
+                </div>
                 <div >
                     <select id="tuner1" name="tuner1"  onChange="tune('R1',value);">
                         <option value="9550">95.5</option>
