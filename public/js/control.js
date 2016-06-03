@@ -3,8 +3,8 @@
             var tuners;
             
             function updateElements() {
-
-                for (i = 1; i < 13; i++) {
+                console.log('updateElements  called');
+                for (i = 1; i < 9; i++) {
 
                     //(document.getElementById('slider' + i)).disabled=false;
                     (document.getElementById('selectAudio' + i)).value = zData[i][0];
@@ -21,11 +21,12 @@
                 }
 
                 tuner1.value = tuners[0].trim() + '0';
+                // (document.getElementById('tuner1')).value=tuners[0].trim() + '0';
                 tuner2.value = tuners[1].trim() + '0';
             }
 
             socket.on('update', function(tunerData, zoneData, curZone) {
-                  console.log('update  called');
+                 console.log('update  called');
                   
                 zData=zoneData;
                 tuners=tunerData;
@@ -51,10 +52,9 @@
             
 
             function tune(tuner, value) {
-                console.log('emitting' + tuner + value)
+                //console.log('emitting' + tuner + value)
 
                 socket.emit('tune', tuner, value);
-
             }
 
             function page(value) {

@@ -4,7 +4,7 @@
             var tuners;
             
             function updateElements() {
-                console.log("calling update with zone"+currentZone);
+                    console.log("calling update with zone"+currentZone);
                     (document.getElementById('slider')).disabled=false;
                     (document.getElementById('zone')).value = currentZone;
                     (document.getElementById('selectAudio')).value = zData[currentZone][0];
@@ -66,7 +66,7 @@
             
 
             function tune(tuner, value) {
-                console.log('emitting' + tuner + value)
+                //console.log('emitting' + tuner + value)
 
                 socket.emit('tune', tuner, value);
 
