@@ -107,7 +107,15 @@ function favicon(response, postData){
     });
 } 
 
-
+function touchicon(response, postData){
+    console.log("Request handler 'apple touch icon' was called.");
+    fs.readFile(__dirname + '/public/images/Icon60@3x.png',function(err,data){
+        if(err) console.log(err);
+        response.writeHead(200,{"Content-Type":"image/png"});
+        response.write(data);
+        response.end();
+    });
+} 
 
 exports.start=start;
 exports.upload=upload;
