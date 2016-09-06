@@ -22,7 +22,7 @@
                 
 
                 tuner1.value = tuners[0].trim() + '0';
-                tuner2.value = tuners[1].trim() + '0';
+                //tuner2.value = tuners[1].trim() + '0';
             }
 
             socket.on('update', function(tunerData, zoneData, curZone) {

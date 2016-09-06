@@ -21,13 +21,11 @@
                 <div>
                     <select id="zone" name="zone" value = currentZone  onChange="updateZone(value);">
                         <option value="1">Master Bed</option>
-                        <option value="2">Front Porch</option>
-                        <option value="3">Back Deck</option>
-                        <option value="4">Kitchen</option>
-                        <option value="5">Great Room</option>
-                        <option value="6">Master Bath</option>
-                        <option value="7">Basement</option>
-                         <option value="8">Workshop</option>
+                        <option value="2">Master Bath</option>
+                        <option value="3">Kitchen</option>
+                        <option value="4">Deck</option>
+                        <option value="5">Front Porch</option>
+                        <option value="6">Workshop</option>
                     </select>         	
                     <input id="slider"  type="range" value=0 min="0" max="100"   onInput="zvol(value);" />
                     
@@ -40,10 +38,9 @@
                         <option value="A0">Off</option>
                         <option value="R1">Radio</option>
                         <option value="A1">Airplay</option>
-                        <option value="A2">iPort</option>
-                        <option value="A3">Marantz</option>
-                        <option value="R2">Radio2</option>
-                        <option value="A4">Sirius</option>
+                        <option value="A2">Sirius</option>
+                        <option value="A3">Denon</option>
+                        <option value="A4">Marantz</option>
                     </select>
                     
                     <select id="tuner1" name="tuner1"  onChange="tune('R1',value);">
@@ -59,18 +56,6 @@
                     </select>
                     <label for="tuner1">Tuner1</label>
                 
-                    <select id="tuner2" name="tuner2"  onChange="tune('R2',value);">
-                        <option value="9550">95.5</option>
-                        <option value="9630">96.3</option>
-                        <option value="9950">99.5</option>
-                        <option value="10110">101.1</option>
-                        <option value="10190">101.9</option>
-                        <option value="10230">102.3</option>
-                        <option value="10350">103.5</option>
-                         <option value="10430">104.3</option>
-                        
-                    </select>
-                    <label for="tuner2">Tuner2</label>
                 </div>
                 
                 <div>	

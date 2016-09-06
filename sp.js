@@ -33,11 +33,11 @@ io = require('socket.io').listen(ser);
   // listen to sockets
   // Get current vol levels
  
-  for(i=1;i<13;i++){
+  for(i=1;i<7;i++){
     sp.write('&AH66,ZQRY,'+i+',?\r')}
  
   sp.write('&AH66,R1,TUNE,?\r')
-  sp.write('&AH66,R2,TUNE,?\r')
+  //sp.write('&AH66,R2,TUNE,?\r')
   
   setTimeout(function() {
       
