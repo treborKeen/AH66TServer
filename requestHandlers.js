@@ -32,7 +32,7 @@ function upload(response, postData){
 
 function main(response, postData){
     console.log("Request handler 'main' was called.");
-    fs.readFile('main.html',    // load html file
+    fs.readFile(__dirname +'/main.html',    // load html file
 
   function (err, data) {
 
@@ -40,7 +40,7 @@ function main(response, postData){
 
       response.writeHead(500);
 
-      return response.end('Error loading index.html');
+      return response.end('Error loading main.html');
 
     }
 
@@ -53,13 +53,13 @@ function main(response, postData){
 
 function zone(response, postData){
     console.log("Request handler 'zone' was called.");
-    fs.readFile('zone.html',    // load html file
+    fs.readFile(__dirname +'/zone.html',    // load html file
 
   function (err, data) {
 
     if (err) {
       response.writeHead(500);
-      return response.end('Error loading index.html');
+      return response.end('Error loading zone.html');
     }
     response.writeHead(200);
     //response.write(data);

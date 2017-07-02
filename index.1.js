@@ -1,7 +1,8 @@
-var server = require("./server");
-var router = require("./router");
-var requestHandlers = require("./requestHandlers");
-var serport = require("./sp");
+//Copy of index in autorun
+var server = require("../AH66TServer/server");
+var router = require("../AH66TServer/router");
+var requestHandlers = require("../AH66TServer/requestHandlers");
+var serport = require("../AH66TServer/sp");
 //var io = require('socket.io');
 
 var handle = {};
