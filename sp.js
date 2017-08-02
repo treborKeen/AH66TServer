@@ -2,9 +2,9 @@ var fs = require('fs');
 
 var b = require('bonescript');
 
-var SerialPort = require("serialport").SerialPort;
+var SerialPort = require("serialport");
 var serialport = require("serialport");
-var sp = new SerialPort("/dev/ttyO4", {
+var sp = new SerialPort("/dev/ttyO2", {
     baudrate: 115200,
     parser: serialport.parsers.readline("\r")
  });
