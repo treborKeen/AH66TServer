@@ -99,9 +99,9 @@ function zoneControl(response, postData){
 
 function favicon(response, postData){
     console.log("Request handler 'favicon' was called.");
-    fs.readFile(__dirname + '/public/images/favicon.ico',function(err,data){
+    fs.readFile(__dirname + '/public/images/favicon.png',function(err,data){
         if(err) console.log(err);
-        response.writeHead(200,{"Content-Type":"image/ico"});
+        response.writeHead(200,{"Content-Type":"image/png"});
         response.write(data);
         response.end();
     });
@@ -109,7 +109,7 @@ function favicon(response, postData){
 
 function touchicon(response, postData){
     console.log("Request handler 'apple touch icon' was called.");
-    fs.readFile(__dirname + '/public/images/Icon60@3x.png',function(err,data){
+    fs.readFile(__dirname + '/public/images/Icon60@2x.png',function(err,data){
         if(err) console.log(err);
         response.writeHead(200,{"Content-Type":"image/png"});
         response.write(data);
@@ -125,3 +125,4 @@ exports.styles=styles;
 exports.control=control;
 exports.zoneControl=zoneControl;
 exports.favicon=favicon;
+exports.touchicon=touchicon;
