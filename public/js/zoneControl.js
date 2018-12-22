@@ -1,3 +1,4 @@
+            /*global io */
             var socket = io();
             var currentZone;
             var zData;
@@ -9,8 +10,8 @@
                     (document.getElementById('zone')).value = currentZone;
                     (document.getElementById('selectAudio')).value = zData[currentZone][0];
                     (document.getElementById('slider')).value = zData[currentZone][1];
-                    (document.getElementById('bassSlider')).value = parseInt(zData[currentZone][2]);
-                    (document.getElementById('trebelSlider')).value = parseInt(zData[currentZone][3]);
+                    (document.getElementById('bassSlider')).value = parseInt(zData[currentZone][2],10);
+                    (document.getElementById('trebelSlider')).value = parseInt(zData[currentZone][3],10);
                     
                     if(zData[currentZone][0]==="A0")
                         (document.getElementById('slider')).disabled=true;
@@ -21,7 +22,9 @@
 
                 
 
-                tuner1.value = tuners[0].trim() + '0';
+                //tuner1.value = tuners[0].trim() + '0';
+                (document.getElementById('tuner1')).value=tuners[0].trim() + '0';
+                
                 //tuner2.value = tuners[1].trim() + '0';
             }
 

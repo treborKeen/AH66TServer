@@ -1,10 +1,11 @@
+            /*global io */
             var socket = io();
             var zData;
             var tuners;
             
             function updateElements() {
                 console.log('updateElements  called');
-                for (i = 1; i < 7; i++) {
+                for (var i = 1; i < 7; i++) {
 
                     //(document.getElementById('slider' + i)).disabled=false;
                     (document.getElementById('selectAudio' + i)).value = zData[i][0];
@@ -20,8 +21,8 @@
 
                 }
 
-                tuner1.value = tuners[0].trim() + '0';
-                // (document.getElementById('tuner1')).value=tuners[0].trim() + '0';
+                //tuner1.value = tuners[0].trim() + '0';
+                 (document.getElementById('tuner1')).value=tuners[0].trim() + '0';
                 //tuner2.value = tuners[1].trim() + '0';
             }
 

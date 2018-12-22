@@ -33,7 +33,7 @@ io = require('socket.io').listen(ser);
   // listen to sockets
   // Get current vol levels
  
-  for(i=1;i<7;i++){
+  for(var i=1;i<7;i++){
     sp.write('&AH66,ZQRY,'+i+',?\r')}
  
   sp.write('&AH66,R1,TUNE,?\r')
@@ -140,7 +140,7 @@ function processData(data) {
 }   
    
 function playDoorbell() {
- 
+ console.log('playing doorbell');
         sp.write("&AH66,DB,1\r")
         setTimeout(function(){
           sp.write("&AH66,DB,0\r");
