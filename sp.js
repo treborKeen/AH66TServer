@@ -1,19 +1,24 @@
+//ls /sys/devices/platform/ocp/ | grep pinmux*
+//config-pin 'P9.11' uart
+//config-pin 'P9.13' uart
 var fs = require('fs');
 
 var b = require('bonescript');
 
 var SerialPort = require("serialport");
 var serialport = require("serialport");
-var sp = new SerialPort("/dev/ttyO2", {
-    baudrate: 115200,
-    parser: serialport.parsers.readline("\r")
+var sp = new SerialPort("/dev/ttyO4", {
+    baudRate: 115200,
+    parser: serialport.parsers.Readline
  });
  
 var io;
 var tuners=[];
 var zData=[[]];  //note nested arrays not 2d declaration
 var curZone=1;
-var doorbell=0;
+//var doorbell=0;
+
+b.pinMode('P8_13', b.INPUT);
 
 function start(ser) {
 
@@ -24,9 +29,12 @@ io = require('socket.io').listen(ser);
     console.log('open');
     sp.on('data',processData);
     setInterval(function(){
-      sp.write("&AH66,STI,1,?\r");
-    },1000)
- })
+      b.digitalRead('P8_13',function(err,x){
+        if(err) throw err;
+        console.log("read pin 8_13"+x);
+        if(x.value) playDoorbell()});
+    },1000);
+ });
  
  io.sockets.on('connection', function (socket) {
 
@@ -36,7 +44,7 @@ io = require('socket.io').listen(ser);
   for(var i=1;i<7;i++){
     sp.write('&AH66,ZQRY,'+i+',?\r')}
  
-  sp.write('&AH66,R1,TUNE,?\r')
+  sp.write('&AH66,R1,TUNE,?\r');
   //sp.write('&AH66,R2,TUNE,?\r')
   
   setTimeout(function() {
@@ -129,23 +137,23 @@ function processData(data) {
       else if(dataSplit[1] == 'R2')
         tuners[1] = dataSplit[3];
     }
-   if (dataSplit[1] == 'STI') {
+   /*if (dataSplit[1] == 'STI') {
      //console.log('found sti');
       if (!doorbell&& dataSplit[3] == '100000')
       {
         doorbell=1;
         playDoorbell();
       }
-    }
+    }*/
 }   
    
 function playDoorbell() {
  console.log('playing doorbell');
-        sp.write("&AH66,DB,1\r")
+        sp.write("&AH66,DB,1\r");
         setTimeout(function(){
           sp.write("&AH66,DB,0\r");
-          doorbell=0;
-        },10000)
+          //doorbell=0;
+        },10000);
 }
 
 exports.start = start;
