@@ -32,7 +32,7 @@ io = require('socket.io').listen(ser);
       b.digitalRead('P8_13',function(err,x){
         if(err) throw err;
         console.log("read pin 8_13"+x);
-        if(x.value) playDoorbell()});
+        if(x) playDoorbell();});
     },1000);
  });
  
@@ -126,7 +126,7 @@ io = require('socket.io').listen(ser);
 
 function processData(data) {
     console.log('data received: ' + data.toString());
-    var dataSplit = data.split(',');
+    var dataSplit = data.toString().split(',');
     //console.log(dataSplit);
     if (dataSplit[1] == 'ZQRY')
       zData[dataSplit[2]] = dataSplit.slice(3);
