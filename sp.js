@@ -18,7 +18,7 @@ var zData=[[]];  //note nested arrays not 2d declaration
 var curZone=1;
 //var doorbell=0;
 
-b.pinMode('P8_13', b.INPUT);
+b.pinMode('P8_7', b.INPUT);
 
 function start(ser) {
 
@@ -29,9 +29,9 @@ io = require('socket.io').listen(ser);
     console.log('open');
     sp.on('data',processData);
     setInterval(function(){
-      b.digitalRead('P8_13',function(err,x){
+      b.digitalRead('P8_7',function(err,x){
         if(err) throw err;
-        console.log("read pin 8_13"+x);
+        console.log("read pin 8_7: "+x);
         if(x) playDoorbell();});
     },1000);
  });
