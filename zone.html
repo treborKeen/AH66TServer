@@ -27,7 +27,7 @@
                         <option value="5">Front Porch</option>
                         <option value="6">Workshop</option>
                     </select>         	
-                    <input id="slider"  type="range" value=0 min="0" max="100"   onChange="zvol(value);" />
+                    <input id="slider"  type="range" value=0 min="0" max="100"   onInput="zvol(value);" />
                     
                     
                 </div>
@@ -59,11 +59,11 @@
                 </div>
                 
                 <div>	
-                    <input id="trebelSlider"  type="range" value=0 min="-12" max="12"   onChange="trebelSelect(value);" />
+                    <input id="trebelSlider"  type="range" value=0 min="-12" max="12"   onInput="trebelSelect(value);" />
                     <label for="trebelSlider">Trebel</label>
                     </div>
                 <div>
-                     <input id="bassSlider"  type="range" value=0 min="-12" max="12"   onChange="bassSelect(value);" />
+                     <input id="bassSlider"  type="range" value=0 min="-12" max="12"   onInput="bassSelect(value);" />
                      <label for="bassSlider">Bass</label>
                     
                 </div>

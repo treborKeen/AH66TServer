@@ -67,5 +67,6 @@
             function sysOff() {
 
                 socket.emit('sysOff');
+                 document.location.reload(true);
 
             }
