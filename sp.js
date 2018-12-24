@@ -11,13 +11,16 @@ const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort("/dev/ttyO4", {
   baudRate: 115200
 });
-const parser=port.pipe(new Readline({delimiter: '\r'}));
+const parser = port.pipe(new Readline({ delimiter: '\r' }));
 
 var io;
 var tuners = [];
-var zData = [[]]; //note nested arrays not 2d declaration
+var zData = [
+  []
+]; //note nested arrays not 2d declaration
 var curZone = 1;
-var doorbellOn=0;
+var doorbellOn = 0;
+var mdf = "Click to update song info";
 
 b.pinMode('P8_7', b.INPUT);
 
@@ -33,13 +36,12 @@ function start(ser) {
       b.digitalRead('P8_7', function(err, x) {
         if (err) throw err;
         //console.log("read pin 8_7: "+x);
-        if (x&&!doorbellOn){
-          doorbellOn=1;
+        if (x && !doorbellOn) {
+          doorbellOn = 1;
           playDoorbell();
-      }
-        if(!x&&doorbellOn)
-        {
-          doorbellOn=0;
+        }
+        if (!x && doorbellOn) {
+          doorbellOn = 0;
           stopDoorbell();
         }
       });
@@ -61,9 +63,9 @@ function start(ser) {
     setTimeout(function() {
 
       console.log('tuners are :' + tuners);
-      console.log('zone data :' +zData);
+      console.log('zone data :' + zData);
       //console.log('zData 1,1 :  '+zData[1][1]);
-      socket.emit('update', tuners, zData, curZone);
+      socket.emit('update', tuners, zData, curZone, mdf);
     }, 500);
 
     socket.on('zvol', function(zone, data) {
@@ -131,6 +133,10 @@ function start(ser) {
       console.log("All Off");
       port.write('&AH66,SYSOFF\r');
     });
+    socket.on('updateMdf', function() {
+      console.log("updateMdf");
+      socket.emit('update', tuners, zData, curZone, mdf);
+    });
 
   }); //end io.socket.on
 } //end start
@@ -148,15 +154,18 @@ function processData(data) {
     else if (dataSplit[1] == 'R2')
       tuners[1] = dataSplit[3];
   }
-  /*if (dataSplit[1] == 'STI') {
-    //console.log('found sti');
-     if (!doorbell&& dataSplit[3] == '100000')
-     {
-       doorbell=1;
-       playDoorbell();
-     }
-   }*/
-}
+  if (dataSplit[2] == 'MDF' && dataSplit[3] == 'R') {
+    var temp = "";
+    if (dataSplit[4].length > 0) {
+      for (var i = 4; i < dataSplit.length; i++) {
+        temp = temp + dataSplit[i];
+      }
+      mdf = temp;
+    }
+    else{mdf="Click to update song info";}
+  }
+
+} //end processData
 
 function playDoorbell() {
   console.log('playing doorbell');
