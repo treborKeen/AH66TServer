@@ -3,6 +3,7 @@
             var currentZone;
             var zData;
             var tuners;
+            var mdfText;
 
             function updateElements() {
                 console.log("calling update with zone" + currentZone);
@@ -24,15 +25,16 @@
 
                 //tuner1.value = tuners[0].trim() + '0';
                 (document.getElementById('tuner1')).value = tuners[0].trim() + '0';
-
+                (document.getElementById('mdf')).innerHTML = mdfText;
                 //tuner2.value = tuners[1].trim() + '0';
             }
 
-            socket.on('update', function(tunerData, zoneData, curZone) {
+            socket.on('update', function(tunerData, zoneData, curZone,mdfData) {
                 console.log('update  called');
                 currentZone = curZone;
                 zData = zoneData;
                 tuners = tunerData;
+                mdfText=mdfData;
                 console.log('tuners are' + tuners);
                 updateElements();
             });
@@ -92,5 +94,11 @@
 
                 socket.emit('updateZone', value);
                 document.location.reload(true);
+            }
+
+            function updateMdf() {
+
+                socket.emit('updateMdf');
+                //document.location.reload(true);
             }
             

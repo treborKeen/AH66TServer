@@ -22,6 +22,7 @@ var curZone = 1;
 var doorbellOn = 0;
 var mdf = "Click to update song info";
 
+
 b.pinMode('P8_7', b.INPUT);
 
 function start(ser) {
@@ -53,7 +54,7 @@ function start(ser) {
     // listen to sockets
     // Get current vol levels
 
-    for (var i = 1; i < 7; i++) {
+    for (var i = 1; i < 11; i++) {
       port.write('&AH66,ZQRY,' + i + ',?\r');
     }
 
@@ -143,6 +144,7 @@ function start(ser) {
 
 function processData(data) {
   console.log('data received: ' + data.toString());
+  console.log((new Date()).toLocaleString("en-US", {timeZone: "America/Chicago"}));
   var dataSplit = data.toString().split(',');
   //console.log(dataSplit);
   if (dataSplit[1] == 'ZQRY')
@@ -168,7 +170,8 @@ function processData(data) {
 } //end processData
 
 function playDoorbell() {
-  console.log('playing doorbell');
+  console.log('playing doorbell ')
+  console.log((new Date()).toLocaleString("en-US", {timeZone: "America/Chicago"}));
   port.write("&AH66,DB,1\r");
   /*setTimeout(function(){
     sp.write("&AH66,DB,0\r");

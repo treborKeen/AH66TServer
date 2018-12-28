@@ -23,9 +23,12 @@
                         <option value="1">Master Bed</option>
                         <option value="2">Master Bath</option>
                         <option value="3">Kitchen</option>
-                        <option value="4">Deck</option>
-                        <option value="5">Front Porch</option>
-                        <option value="6">Workshop</option>
+                        <option value="4">Studio</option>
+                        <option value="5">Workshop</option>
+                        <option value="6">Basement</option>
+                        <option value="7">Porch</option>
+                        <option value="8">Deck</option>
+                        <option value="9">Patio</option>
                     </select>         	
                     <input id="slider"  type="range" value=0 min="0" max="100"   onInput="zvol(value);" />
                     
@@ -70,6 +73,11 @@
                 <div >
                     <button id="sysOff" name="sysOff"  onclick="sysOff()">ALL OFF</button>
                 <button onclick="window.location.href='/'">Main</button>
+                </div>
+                <div>
+                    <p id="mdf" name ="mdf" onclick='updateMdf()'>
+                        Click to update song info
+                    </p>
                 </div>
     </body>
 
