@@ -15,9 +15,7 @@ const parser = port.pipe(new Readline({ delimiter: '\r' }));
 
 var io;
 var tuners = [];
-var zData = [
-  []
-]; //note nested arrays not 2d declaration
+var zData = [[]]; //note nested arrays not 2d declaration
 var curZone = 1;
 var doorbellOn = 0;
 var mdf = "Click to update song info";
@@ -54,7 +52,7 @@ function start(ser) {
     // listen to sockets
     // Get current vol levels
 
-    for (var i = 1; i < 11; i++) {
+    for (var i = 1; i < 10; i++) {
       port.write('&AH66,ZQRY,' + i + ',?\r');
     }
 
