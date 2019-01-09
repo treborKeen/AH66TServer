@@ -2,9 +2,13 @@
 //config-pin 'P9.11' uart
 //config-pin 'P9.13' uart
 // cat /sys/devices/platform/ocp/ocp:P9_11_pinmux/state
+
+//amixer -c 1 set Speaker 90%
+
 //var fs = require('fs');
 
 var b = require('bonescript');
+var child_process = require('child_process');
 
 const SerialPort = require("serialport");
 //const serialport = require("serialport");
@@ -16,7 +20,9 @@ const parser = port.pipe(new Readline({ delimiter: '\r' }));
 
 var io;
 var tuners = [];
-var zData = [[]]; //note nested arrays not 2d declaration
+var zData = [
+  []
+]; //note nested arrays not 2d declaration
 var curZone = 1;
 var doorbellOn = 0;
 var mdf = "Click to update song info";
@@ -42,12 +48,12 @@ function start(ser) {
           doorbellOn = 1;
           playDoorbell();
         }
-        if (!x && doorbellOn) {
-          doorbellOn = 0;
-          stopDoorbell();
-        }
+        /* if (!x && doorbellOn) {
+           doorbellOn = 0;
+           stopDoorbell();
+         }*/
       });
-    }, 1000);
+    }, 500);
   });
 
   io.sockets.on('connection', function(socket) {
@@ -55,7 +61,7 @@ function start(ser) {
     // listen to sockets
     // Get current vol levels
 
-    for (var i = 1; i < 10; i++) {
+    for (var i = 1; i < 7; i++) {
       port.write('&AH66,ZQRY,' + i + ',?\r');
     }
 
@@ -65,8 +71,8 @@ function start(ser) {
     setTimeout(function() {
 
       //console.log('tuners are :' + tuners);
-      //console.log('zone data :' + zData);
-      //console.log('zData 1,1 :  '+zData[1][1]);
+      console.log('zone data :' + zData);
+      //console.log('zData 1,1 :  '+zData[1][0]);
       socket.emit('update', tuners, zData, curZone, mdf);
     }, 500);
 
@@ -145,9 +151,9 @@ function start(ser) {
 
 function processData(data) {
   console.log('data received: ' + data.toString());
-  console.log((new Date()).toLocaleString("en-US", {timeZone: "America/Chicago"}));
+  console.log((new Date()).toLocaleString("en-US", { timeZone: "America/Chicago" }));
   var dataSplit = data.toString().split(',');
-  //console.log(dataSplit);
+  //console.log("dataSplit: "+dataSplit);
   if (dataSplit[1] == 'ZQRY')
     zData[dataSplit[2]] = dataSplit.slice(3);
 
@@ -165,24 +171,33 @@ function processData(data) {
       }
       mdf = temp;
     }
-    else{mdf="Click to update song info";}
+    else { mdf = "Click to update song info"; }
   }
 
 } //end processData
 
 function playDoorbell() {
   console.log('playing doorbell*************************************');
-  console.log((new Date()).toLocaleString("en-US", {timeZone: "America/Chicago"}));
+  console.log((new Date()).toLocaleString("en-US", { timeZone: "America/Chicago" }));
   port.write("&AH66,DB,1\r");
-  /*setTimeout(function(){
-    sp.write("&AH66,DB,0\r");
-    //doorbell=0;
-  },10000);*/
-}
+  /*  child_process.exec('/usr/bin/aplay  /var/lib/cloud9/Doorbell.wav', function(error, stdout, stderr){
+  	console.log(stdout);
+  });*/
+  child_process.execFile('aplay', ['/var/lib/cloud9/Doorbell.wav'], function(error, stdout, stderr) {
+    console.log(stdout);
+    stopDoorbell();
+  });
+  /*setTimeout(function() {
+    port.write("&AH66,DB,0\r");
+    doorbellOn = 0;
+    console.log('stopping doorbell*************************************');
+  }, 5000);*/
+}//end playDoorbell
 
 function stopDoorbell() {
   console.log('stopping doorbell*************************************');
   port.write("&AH66,DB,0\r");
+  doorbellOn=0;
 }
 
 exports.start = start;
