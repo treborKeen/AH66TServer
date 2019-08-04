@@ -12,7 +12,7 @@ var child_process = require('child_process');
 
 const SerialPort = require("serialport");
 //const serialport = require("serialport");
-const Readline = SerialPort.parsers.Readline;
+const Readline = require('@serialport/parser-readline');
 const port = new SerialPort("/dev/ttyO4", {
   baudRate: 115200
 });
@@ -32,7 +32,7 @@ b.pinMode('P8_7', b.INPUT);
 
 function start(ser) {
 
-  io = require('socket.io').listen(ser);
+   io = require('socket.io').listen(ser);
 
 
   port.on('open', function() {
@@ -56,7 +56,7 @@ function start(ser) {
     }, 500);
   });
 
-  io.sockets.on('connection', function(socket) {
+  io.on('connection', function(socket) {
 
     // listen to sockets
     // Get current vol levels
@@ -146,7 +146,7 @@ function start(ser) {
       socket.emit('update', tuners, zData, curZone, mdf);
     });
 
-  }); //end io.socket.on
+  }); //end io.on
 } //end start
 
 function processData(data) {
