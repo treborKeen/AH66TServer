@@ -183,7 +183,7 @@ function playDoorbell() {
   /*  child_process.exec('/usr/bin/aplay  /var/lib/cloud9/Doorbell.wav', function(error, stdout, stderr){
   	console.log(stdout);
   });*/
-  child_process.execFile('aplay', ['/var/lib/cloud9/Doorbell.wav'], function(error, stdout, stderr) {
+  child_process.execFile('aplay', ['-D', 'hw:1,0', '/var/lib/cloud9/Doorbell.wav'], function(error, stdout, stderr) {
     console.log(stdout);
     stopDoorbell();
   });
