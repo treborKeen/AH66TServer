@@ -27,6 +27,7 @@ var curZone = 1;
 var doorbellOn = 0;
 var mdf = "Click to update song info";
 
+var debug = true;
 
 b.pinMode('P8_7', b.INPUT);
 
@@ -48,10 +49,7 @@ function start(ser) {
           doorbellOn = 1;
           playDoorbell();
         }
-        /* if (!x && doorbellOn) {
-           doorbellOn = 0;
-           stopDoorbell();
-         }*/
+        
       });
     }, 500);
   });
@@ -61,7 +59,7 @@ function start(ser) {
     // listen to sockets
     // Get current vol levels
 
-    for (var i = 1; i < 7; i++) {
+    for (var i = 1; i < 10; i++) {
       port.write('&AH66,ZQRY,' + i + ',?\r');
     }
 
@@ -150,8 +148,8 @@ function start(ser) {
 } //end start
 
 function processData(data) {
-  console.log('data received: ' + data.toString());
-  console.log((new Date()).toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  //console.log('data received: ' + data.toString());
+  //console.log((new Date()).toLocaleString("en-US", { timeZone: "America/Chicago" }));
   var dataSplit = data.toString().split(',');
   //console.log("dataSplit: "+dataSplit);
   if (dataSplit[1] == 'ZQRY')
@@ -170,10 +168,11 @@ function processData(data) {
         temp = temp + dataSplit[i];
       }
       mdf = temp;
+      temp=null
     }
     else { mdf = "Click to update song info"; }
   }
-
+dataSplit = null;
 } //end processData
 
 function playDoorbell() {
