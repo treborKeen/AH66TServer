@@ -33,7 +33,7 @@ b.pinMode('P8_7', b.INPUT);
 
 function start(ser) {
 
-   io = require('socket.io').listen(ser);
+   io = require('socket.io')(ser);
 
 
   port.on('open', function() {
